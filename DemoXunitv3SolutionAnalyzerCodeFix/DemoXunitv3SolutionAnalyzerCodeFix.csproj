@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>DemoXunitv3SolutionAnalyzerCodeFix</RootNamespace>
+        <IsPackable>false</IsPackable>
+        <IsTestProject>true</IsTestProject>
+        <OutputType>Exe</OutputType>
+        <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="xunit.v3" Version="3.2.2" />
+        <PackageReference Include="AwesomeAssertions" Version="9.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\framework\ANcpLua.Roslyn.Utilities\src\ANcpLua.Roslyn.Utilities.Testing\ANcpLua.Roslyn.Utilities.Testing.csproj" />
+        <ProjectReference Include="..\..\framework\ANcpLua.Roslyn.Utilities\src\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationShared\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationShared.csproj" />
+        <ProjectReference Include="..\..\framework\ANcpLua.Roslyn.Utilities\src\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationAnalyzer\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationAnalyzer.csproj" />
+        <ProjectReference Include="..\..\framework\ANcpLua.Roslyn.Utilities\src\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationCodeFixes\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationCodeFixes.csproj" />
+    </ItemGroup>
+</Project>
