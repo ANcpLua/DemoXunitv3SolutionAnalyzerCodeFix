@@ -1,16 +1,16 @@
 using System;
-using ANcpLua.Roslyn.Utilities.Examples.XunitCancellationAnalyzer;
-using ANcpLua.Roslyn.Utilities.Examples.XunitCancellationCodeFixes;
-using ANcpLua.Roslyn.Utilities.Examples.XunitCancellationShared;
+using ANcpLua.Analyzers.Analyzers;
+using ANcpLua.Analyzers.CodeFixes.CodeFixes;
 using ANcpLua.Roslyn.Utilities.Testing;
 using Xunit;
 
 namespace DemoXunitv3SolutionAnalyzerCodeFix;
 
-public sealed class CancellationAnalyzerSmokeTests : CodeFixTest<MissingCancellationTokenAnalyzer, MissingCancellationTokenFixer>
+public sealed class CancellationAnalyzerSmokeTests
+    : CodeFixTest<Al0126CancellationTokenPropagationAnalyzer, Al0126CancellationTokenPropagationCodeFixProvider>
 {
     [Fact]
-    public async Task FixProvider_adds_test_context_cancellation_token_on_omitted_argument()
+    public async Task FixProvider_replaces_default_token_with_xunit_test_context_token()
     {
         const string source = """
             using System;
@@ -21,27 +21,22 @@ public sealed class CancellationAnalyzerSmokeTests : CodeFixTest<MissingCancella
             namespace Xunit
             {
                 public sealed class FactAttribute : Attribute { }
+
+                public sealed class TestContext
+                {
+                    public static TestContext Current { get; } = new TestContext();
+                    public CancellationToken CancellationToken { get; } = new CancellationToken();
+                }
             }
 
             public sealed class UnitTests
             {
                 [Fact]
-                public async Task Executes()
-                {
-                    await {|ANCP0001:DoThingAsync(default)|};
-                }
-
+                public async Task Executes() =>
+                    await {|AL0126:DoThingAsync(default)|};
+            
                 private static Task DoThingAsync(CancellationToken cancellationToken) =>
                     Task.CompletedTask;
-            }
-            public static class TestContext
-            {
-                public static ContextState Current { get; } = new ContextState();
-            }
-
-            public sealed class ContextState
-            {
-                public CancellationToken CancellationToken { get; } = new CancellationToken();
             }
             """;
 
@@ -54,27 +49,22 @@ public sealed class CancellationAnalyzerSmokeTests : CodeFixTest<MissingCancella
             namespace Xunit
             {
                 public sealed class FactAttribute : Attribute { }
+            
+                public sealed class TestContext
+                {
+                    public static TestContext Current { get; } = new TestContext();
+                    public CancellationToken CancellationToken { get; } = new CancellationToken();
+                }
             }
 
             public sealed class UnitTests
             {
                 [Fact]
-                public async Task Executes()
-                {
-                    await DoThingAsync(TestContext.Current.CancellationToken);
-                }
-
+                public async Task Executes() =>
+                    await DoThingAsync(global::Xunit.TestContext.Current.CancellationToken);
+            
                 private static Task DoThingAsync(CancellationToken cancellationToken) =>
                     Task.CompletedTask;
-            }
-            public static class TestContext
-            {
-                public static ContextState Current { get; } = new ContextState();
-            }
-
-            public sealed class ContextState
-            {
-                public CancellationToken CancellationToken { get; } = new CancellationToken();
             }
             """;
 
@@ -82,9 +72,8 @@ public sealed class CancellationAnalyzerSmokeTests : CodeFixTest<MissingCancella
     }
 
     [Fact]
-    public void Shared_contract_uses_expected_replacement_expression()
+    public void Demo_uses_real_analyzer_rule()
     {
-        Assert.Equal("TestContext.Current.CancellationToken", MissingCancellationTokenContract.ReplacementExpression);
-        Assert.NotNull(MissingCancellationTokenContract.CreateReplacementTokenExpression());
+        Assert.Equal("AL0126", Al0126CancellationTokenPropagationAnalyzer.DiagnosticId);
     }
 }

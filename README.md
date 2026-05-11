@@ -1,11 +1,11 @@
 # DemoXunitv3SolutionAnalyzerCodeFix
 
-Local .NET 10 xUnit analyzer/code-fix smoke test repository for the missing cancellation token Roslyn analyzer and code fix.
+Local .NET 10 xUnit analyzer/code-fix smoke test repository for `ANcpLua.Analyzers` cancellation-token propagation.
 
 ## Purpose
 - Build and run a realistic test harness locally.
 - Keep verification deterministic and close to a remote package/CI-style workflow.
-- Demonstrate analyzer + code-fix behavior with xUnit v3.
+- Demonstrate the real `ANcpLua.Analyzers` analyzer + code-fix behavior with xUnit v3.
 
 ## Build and run
 
@@ -18,4 +18,3 @@ The stable verification command for this repo is to run the generated xUnit exec
 ```bash
 dotnet DemoXunitv3SolutionAnalyzerCodeFix/bin/Debug/net10.0/DemoXunitv3SolutionAnalyzerCodeFix.dll
 ```
-

@@ -18,12 +18,12 @@
         <PackageReference Include="xunit.v3.mtp-v1" Version="3.2.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
         <PackageReference Include="AwesomeAssertions" Version="9.4.0" />
+        <PackageReference Include="ANcpLua.Roslyn.Utilities" Version="2.2.5" />
+        <PackageReference Include="ANcpLua.Roslyn.Utilities.Testing" Version="2.2.5" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\framework\ANcpLua.Roslyn.Utilities\src\ANcpLua.Roslyn.Utilities.Testing\ANcpLua.Roslyn.Utilities.Testing.csproj" />
-        <ProjectReference Include="..\..\framework\ANcpLua.Roslyn.Utilities\src\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationShared\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationShared.csproj" />
-        <ProjectReference Include="..\..\framework\ANcpLua.Roslyn.Utilities\src\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationAnalyzer\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationAnalyzer.csproj" />
-        <ProjectReference Include="..\..\framework\ANcpLua.Roslyn.Utilities\src\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationCodeFixes\ANcpLua.Roslyn.Utilities.Examples.XunitCancellationCodeFixes.csproj" />
+        <ProjectReference Include="..\..\RiderProjects\ANcpLua.Analyzers\src\ANcpLua.Analyzers\ANcpLua.Analyzers.csproj" />
+        <ProjectReference Include="..\..\RiderProjects\ANcpLua.Analyzers\src\ANcpLua.Analyzers.CodeFixes\ANcpLua.Analyzers.CodeFixes.csproj" />
     </ItemGroup>
 </Project>
